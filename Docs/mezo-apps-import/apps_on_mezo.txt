@@ -1,0 +1,62 @@
+Apps on Mezo
+Source: "Explore apps build on Mezo" section from the provided HTML
+
+Name: Lolli
+Description: Start stacking sats with Lolli. Link your account with Mezo to withdraw and spend your sats.
+Link: https://lolli.com/
+Icon: icons/Lolli.jpg
+
+Name: Safe
+Description: Battle tested smart wallet infrastructure built for Mezo
+Link: https://safe.mezo.org/welcome
+Icon: icons/Safe.svg
+
+Name: Umy
+Description: Book your travel using MUSD through Umy, a travel platform offering secure and convenient travel booking services.
+Link: https://www.umy.com/
+Icon: icons/Umy.png
+
+Name: MUSD Monitor
+Description: Check trove status, recent redemptions and liquidations, price of BTC and MUSD from Mezo oracles, and more.
+Link: https://mezotools.cc/
+Icon: icons/MUSD_Monitor.png
+
+Name: veBoost Calculator
+Description: Calculate your earnings and boost multiplier from your veMEZO and veBTC locks.
+Link: https://boost.mallard.sh/
+Icon: icons/veBoost_Calculator.png
+
+Name: Wormhole
+Description: Bridge MUSD to Ethereum for additional yield, swaps, and off-ramping.
+Link: https://portalbridge.com/?sourceChain=mezo&targetChain=ethereum&asset=musd&targetAsset=musd
+Icon: icons/Wormhole.png
+
+Name: Matchbox
+Description: A marketplace connecting veBTC holders with veMEZO holders so both sides can maximize their earnings.
+Link: https://matchbox.mallard.sh/
+Icon: icons/Matchbox.png
+
+Name: Brotocol
+Description: Bridge your BTC in and out of Mezo in a few clicks.
+Link: https://brotocol.xyz/bridge/cross-bridge?toToken=evm%3A31612%3A0x7b7C000000000000000000000000000000000000
+Icon: icons/Brotocol.svg
+
+Name: Mezo Agent
+Description: An AI-powered web3 agent to engage with Mezo's testnet using natural language.
+Link: https://github.com/LowPolyDuck/MezoAgent/tree/Smart-Agent
+Icon: icons/Mezo_Agent.jpg
+
+Name: Morpho
+Description: Morpho's earn vaults give users access to yield on any asset. The Alpha MUSD Core is designed to maximize risk-adjusted returns for MUSD.
+Link: https://app.morpho.org/ethereum/vault/0x52317a47585A6ACDfbD7a29B494c3E2baAE96aBc
+Icon: icons/Morpho.svg
+
+Name: BitFire
+Description: Stake BTC, borrow MUSD, and earn looping rewards all in one place.
+Link: https://bit-fire.xyz/
+Icon: icons/BitFire.png
+
+Name: Uwi
+Description: The first RWA vault for MUSD. Funds used as loans to build pre-sold affordable housing in Philippines and Indonesia.
+Link: https://mezovault.uwihomes.com/signup
+Icon: icons/Uwi.png

@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:seed:community": "node scripts/seed-community-projects.mjs"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
     "@phosphor-icons/react": "^2.1.10",
     "framer-motion": "^12.35.0",
     "next": "16.1.6",

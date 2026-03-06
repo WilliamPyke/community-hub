@@ -23,15 +23,6 @@ export interface YieldPool {
   lpBreakdown: { asset: string; percentage: number; color: string }[];
 }
 
-export interface CommunityProject {
-  id: string;
-  name: string;
-  category: "tool" | "analytics" | "bridge" | "wallet" | "game" | "social";
-  description: string;
-  url: string;
-  logo: string;
-}
-
 const generateHistory = (baseApy: number, baseTvl: number) => {
   const history = [];
   for (let i = 30; i >= 0; i--) {
@@ -274,81 +265,6 @@ export const pools: YieldPool[] = [
       { asset: "MUSD", percentage: 50.8, color: "#34d399" },
       { asset: "DAI", percentage: 49.2, color: "#fbbf24" },
     ],
-  },
-];
-
-export const communityProjects: CommunityProject[] = [
-  {
-    id: "mezo-scan",
-    name: "MezoScan",
-    category: "analytics",
-    description:
-      "Block explorer and analytics platform for the Mezo network. Track transactions, wallets, and smart contracts.",
-    url: "https://mezoscan.io",
-    logo: "MS",
-  },
-  {
-    id: "mezo-bridge",
-    name: "Mezo Bridge",
-    category: "bridge",
-    description:
-      "Official cross-chain bridge connecting Ethereum, Arbitrum, and Mezo. Secured by a decentralized validator set.",
-    url: "https://bridge.mezo.org",
-    logo: "MB",
-  },
-  {
-    id: "matsnet-toolkit",
-    name: "Matsnet Toolkit",
-    category: "tool",
-    description:
-      "Developer SDK and CLI for deploying smart contracts on Mezo. Includes templates, testing framework, and gas estimator.",
-    url: "https://matsnet.dev",
-    logo: "MT",
-  },
-  {
-    id: "mezo-portfolio",
-    name: "Folium",
-    category: "wallet",
-    description:
-      "Portfolio tracker optimized for Mezo DeFi positions. Aggregates yields, IL calculations, and PnL across protocols.",
-    url: "https://folium.finance",
-    logo: "FL",
-  },
-  {
-    id: "mezo-quest",
-    name: "Mezo Quest",
-    category: "game",
-    description:
-      "Gamified onboarding platform. Complete DeFi quests on Mezo to earn NFT badges and protocol incentive boosts.",
-    url: "https://mezoquest.xyz",
-    logo: "MQ",
-  },
-  {
-    id: "mezo-forum",
-    name: "The Agora",
-    category: "social",
-    description:
-      "Community governance forum for Mezo protocol proposals, temperature checks, and ecosystem coordination.",
-    url: "https://agora.mezo.org",
-    logo: "AG",
-  },
-  {
-    id: "mezo-alert",
-    name: "Sentinel",
-    category: "analytics",
-    description:
-      "Real-time alert system for Mezo DeFi. Monitor whale movements, liquidation risks, and APR changes via Telegram or Discord.",
-    url: "https://sentinel.mezo.tools",
-    logo: "SN",
-  },
-  {
-    id: "tbtc-wrap",
-    name: "tBTC Wrapper",
-    category: "bridge",
-    description:
-      "Trustless Bitcoin wrapping interface. Convert native BTC to tBTC for use across Mezo DeFi protocols without custodial risk.",
-    url: "https://tbtcwrap.mezo.org",
-    logo: "TB",
   },
 ];
 

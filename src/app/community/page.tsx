@@ -1,7 +1,21 @@
-import { communityProjects } from "@/lib/data";
+import { CommunityProject, getCommunityProjects } from "@/lib/community-projects";
 import { CommunityDirectory } from "@/components/community-directory";
 
-export default function CommunityPage() {
+export const dynamic = "force-dynamic";
+
+export default async function CommunityPage() {
+  let projects: CommunityProject[] = [];
+  let loadError: string | null = null;
+
+  try {
+    projects = await getCommunityProjects();
+  } catch (error) {
+    loadError =
+      error instanceof Error
+        ? error.message
+        : "Failed to load community projects.";
+  }
+
   return (
     <div>
       <header className="mb-8">
@@ -12,7 +26,13 @@ export default function CommunityPage() {
           Tools, apps, and resources built by the Mezo community.
         </p>
       </header>
-      <CommunityDirectory projects={communityProjects} />
+      {loadError ? (
+        <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-200">
+          {loadError}
+        </div>
+      ) : (
+        <CommunityDirectory projects={projects} />
+      )}
     </div>
   );
 }

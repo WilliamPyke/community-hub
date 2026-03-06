@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import {
@@ -8,18 +9,17 @@ import {
 } from "@phosphor-icons/react";
 import {
   CommunityProject,
-  categoryLabels,
-  categoryColors,
-} from "@/lib/data";
+  communityCategoryLabels,
+  communityCategoryColors,
+} from "@/lib/community-projects";
 
 const categories = [
   "all",
-  "tool",
-  "analytics",
-  "bridge",
-  "wallet",
-  "game",
-  "social",
+  "DeFi",
+  "Social",
+  "Infra & Tools",
+  "Wallet",
+  "AI",
 ] as const;
 
 export function CommunityDirectory({
@@ -49,7 +49,7 @@ export function CommunityDirectory({
                 : "text-zinc-500 hover:text-zinc-300 border border-transparent"
             }`}
           >
-            {cat === "all" ? "All" : categoryLabels[cat]}
+            {cat === "all" ? "All" : communityCategoryLabels[cat]}
           </button>
         ))}
       </div>
@@ -71,10 +71,22 @@ export function CommunityDirectory({
               damping: 30,
             }}
           >
-            <div className="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700/50 flex items-center justify-center shrink-0">
-              <span className="text-xs font-mono font-bold text-zinc-400">
-                {project.logo}
-              </span>
+            <div className="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700/50 flex items-center justify-center shrink-0 overflow-hidden">
+              {project.logo.startsWith("/") || project.logo.startsWith("http") ? (
+                <Image
+                  src={project.logo}
+                  alt={`${project.name} logo`}
+                  width={32}
+                  height={32}
+                  unoptimized
+                  loading="lazy"
+                  className="w-8 h-8 object-contain"
+                />
+              ) : (
+                <span className="text-xs font-mono font-bold text-zinc-400">
+                  {project.logo}
+                </span>
+              )}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
@@ -88,10 +100,10 @@ export function CommunityDirectory({
               </div>
               <span
                 className={`text-[10px] font-medium uppercase tracking-wider ${
-                  categoryColors[project.category]
+                  communityCategoryColors[project.category]
                 }`}
               >
-                {categoryLabels[project.category]}
+                {communityCategoryLabels[project.category]}
               </span>
               <p className="text-xs text-zinc-500 mt-1.5 leading-relaxed">
                 {project.description}
