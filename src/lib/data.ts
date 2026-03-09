@@ -161,9 +161,12 @@ function mapApiPool(
     0
   );
 
+  // API returns apr as basis points (e.g. 1509 = 15.09%)
+  const apiApr = pool.stats.apr / 100;
+
   // Build APR breakdown: API apr + any external Merkl rewards
   const { total: totalApr, breakdown: aprBreakdown } = buildAprBreakdown(
-    pool.stats.apr,
+    apiApr,
     tvl,
     rewards
   );

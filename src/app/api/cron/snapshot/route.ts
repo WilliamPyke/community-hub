@@ -56,7 +56,7 @@ export async function GET(request: Request) {
       0
     );
     const feeApr = tvl > 0 ? (dailyFeesUsd / tvl) * 365 * 100 : 0;
-    const totalApr = pool.stats.apr;
+    const totalApr = pool.stats.apr / 100;
 
     await sql.query(
       `INSERT INTO pool_snapshots (pool_address, tvl, fee_apr, total_apr, daily_fees_usd, daily_volume_usd)
