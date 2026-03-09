@@ -121,15 +121,16 @@ function snapshotsToHistory(snapshots: PoolSnapshot[]) {
 // -- Build APR breakdown --
 
 function buildAprBreakdown(
-  feeApr: number,
+  apiApr: number,
   tvl: number,
   rewards: PoolReward[]
 ): { total: number; breakdown: AprComponent[] } {
   const breakdown: AprComponent[] = [
-    { label: "Fee APR", apr: Math.round(feeApr * 100) / 100, type: "base" },
+    { label: "Pool APR", apr: apiApr, type: "base" },
   ];
 
-  let rewardAprTotal = 0;
+  // External rewards (Merkl, etc.) from the pool_rewards table
+  let externalRewardTotal = 0;
   for (const reward of rewards) {
     const rewardApr = tvl > 0 ? (reward.dailyUsd * 365) / tvl * 100 : 0;
     const rounded = Math.round(rewardApr * 100) / 100;
@@ -138,10 +139,10 @@ function buildAprBreakdown(
       apr: rounded,
       type: "reward",
     });
-    rewardAprTotal += rounded;
+    externalRewardTotal += rounded;
   }
 
-  const total = Math.round((feeApr + rewardAprTotal) * 100) / 100;
+  const total = Math.round((apiApr + externalRewardTotal) * 100) / 100;
   return { total, breakdown };
 }
 
@@ -154,16 +155,15 @@ function mapApiPool(
 ): YieldPool {
   const tvl = parseFloat(pool.tvl);
 
-  // Calculate fee-based APR from daily fees
+  // Daily fees from the API
   const dailyFees = pool.stats.fees.reduce(
     (sum, f) => sum + parseFloat(f.amountUSD),
     0
   );
-  const feeApr = tvl > 0 ? (dailyFees / tvl) * 365 * 100 : 0;
 
-  // Build APR breakdown (fee yield + reward tokens)
+  // Build APR breakdown: API apr + any external Merkl rewards
   const { total: totalApr, breakdown: aprBreakdown } = buildAprBreakdown(
-    feeApr,
+    pool.stats.apr,
     tvl,
     rewards
   );
