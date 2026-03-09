@@ -1,7 +1,11 @@
-import { pools } from "@/lib/data";
+import { fetchPools } from "@/lib/data";
 import { YieldDashboard } from "@/components/yield-dashboard";
 
-export default function Home() {
+export const revalidate = 300; // revalidate every 5 minutes
+
+export default async function Home() {
+  const pools = await fetchPools();
+
   return (
     <div>
       <header className="mb-8">
@@ -13,7 +17,15 @@ export default function Home() {
           — execute trades on each protocol directly.
         </p>
       </header>
-      <YieldDashboard pools={pools} />
+      {pools.length > 0 ? (
+        <YieldDashboard pools={pools} />
+      ) : (
+        <div className="py-20 text-center">
+          <p className="text-zinc-500 text-sm">
+            Unable to load pool data. Please try again later.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

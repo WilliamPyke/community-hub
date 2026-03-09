@@ -78,7 +78,7 @@ export function PoolDetail({ pool }: { pool: YieldPool }) {
               {pool.pair}
             </h1>
             <div className="flex items-center gap-2 mt-0.5">
-              <span className="text-xs text-zinc-500">{pool.protocol}</span>
+              <span className="text-xs text-zinc-500">{pool.poolType}</span>
               <span
                 className={`text-xs font-medium ${
                   categoryColors[pool.category]
@@ -104,11 +104,10 @@ export function PoolDetail({ pool }: { pool: YieldPool }) {
       {/* Stats row */}
       <div className="grid grid-cols-3 gap-px bg-zinc-800/40 rounded-lg overflow-hidden mb-8">
         {[
-          { label: "APR", value: `${pool.apr.toFixed(2)}%`, accent: true },
           { label: "TVL", value: formatTvl(pool.tvl), accent: false },
           {
-            label: "Daily Rewards",
-            value: formatRewards(pool.dailyRewards),
+            label: "Daily Fees",
+            value: formatRewards(pool.dailyFees),
             accent: false,
           },
         ].map((stat) => (
@@ -125,6 +124,47 @@ export function PoolDetail({ pool }: { pool: YieldPool }) {
             </span>
           </div>
         ))}
+
+        {/* APR breakdown card */}
+        <div className="bg-[#141416] px-4 py-4">
+          <span className="text-xs text-zinc-600 block mb-1">Net APR</span>
+          <span className="font-mono text-lg font-semibold text-emerald-400">
+            {pool.apr.toFixed(2)}%
+          </span>
+          {pool.aprBreakdown.length > 1 && (
+            <div className="mt-2 space-y-1">
+              {pool.aprBreakdown.map((component) => (
+                <div
+                  key={component.label}
+                  className="flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-1.5">
+                    <div
+                      className={`w-1 h-1 rounded-full ${
+                        component.type === "base"
+                          ? "bg-zinc-500"
+                          : "bg-emerald-400"
+                      }`}
+                    />
+                    <span className="text-[10px] text-zinc-500">
+                      {component.label}
+                    </span>
+                  </div>
+                  <span
+                    className={`font-mono text-[10px] ${
+                      component.type === "base"
+                        ? "text-zinc-500"
+                        : "text-emerald-400/80"
+                    }`}
+                  >
+                    {component.type === "reward" ? "+" : ""}
+                    {component.apr.toFixed(2)}%
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Charts */}

@@ -16,11 +16,12 @@ import {
   categoryLabels,
   categoryColors,
 } from "@/lib/data";
+import { AprBreakdown } from "./apr-breakdown";
 
-type SortKey = "apr" | "tvl" | "dailyRewards";
+type SortKey = "apr" | "tvl" | "dailyFees";
 type SortDir = "asc" | "desc";
 
-const categories = ["all", "stable", "volatile", "lsd", "lending"] as const;
+const categories = ["all", "stable", "volatile"] as const;
 
 export function YieldDashboard({ pools }: { pools: YieldPool[] }) {
   const [sortKey, setSortKey] = useState<SortKey>("apr");
@@ -37,7 +38,8 @@ export function YieldDashboard({ pools }: { pools: YieldPool[] }) {
   };
 
   const filtered = useMemo(() => {
-    let list = filter === "all" ? pools : pools.filter((p) => p.category === filter);
+    let list =
+      filter === "all" ? pools : pools.filter((p) => p.category === filter);
     list = [...list].sort((a, b) => {
       const mult = sortDir === "desc" ? -1 : 1;
       return (a[sortKey] - b[sortKey]) * mult;
@@ -89,12 +91,12 @@ export function YieldDashboard({ pools }: { pools: YieldPool[] }) {
           TVL <SortIcon col="tvl" />
         </button>
         <button
-          onClick={() => toggleSort("dailyRewards")}
+          onClick={() => toggleSort("dailyFees")}
           className="text-left hover:text-zinc-400 transition-colors"
         >
-          Daily Rewards <SortIcon col="dailyRewards" />
+          Daily Fees <SortIcon col="dailyFees" />
         </button>
-        <span>Category</span>
+        <span>Type</span>
         <span></span>
       </div>
 
@@ -128,19 +130,20 @@ export function YieldDashboard({ pools }: { pools: YieldPool[] }) {
                     {pool.pair}
                   </span>
                   <span className="block text-xs text-zinc-600">
-                    {pool.protocol}
+                    {pool.poolType}
                   </span>
                 </div>
               </div>
 
-              {/* APR */}
+              {/* APR with breakdown */}
               <div className="flex items-center md:block">
                 <span className="text-xs text-zinc-600 md:hidden mr-2">
                   APR
                 </span>
-                <span className="font-mono text-sm font-semibold text-emerald-400">
-                  {pool.apr.toFixed(2)}%
-                </span>
+                <AprBreakdown
+                  apr={pool.apr}
+                  breakdown={pool.aprBreakdown}
+                />
               </div>
 
               {/* TVL */}
@@ -153,13 +156,13 @@ export function YieldDashboard({ pools }: { pools: YieldPool[] }) {
                 </span>
               </div>
 
-              {/* Daily Rewards */}
+              {/* Daily Fees */}
               <div className="flex items-center md:block">
                 <span className="text-xs text-zinc-600 md:hidden mr-2">
-                  Daily
+                  Fees
                 </span>
                 <span className="font-mono text-sm text-zinc-400">
-                  {formatRewards(pool.dailyRewards)}
+                  {formatRewards(pool.dailyFees)}
                 </span>
               </div>
 
